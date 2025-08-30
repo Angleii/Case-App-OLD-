@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node -e \"if(!process.env.JWT_SECRET){console.error('JWT_SECRET environment variable is required');process.exit(1);} require('./server.js');\""
   },
   "author": "Anglei Ferreira Ferradais",
   "license": "ISC",
