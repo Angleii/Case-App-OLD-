@@ -2,7 +2,11 @@ let urlServer2 = "";
 
 document.addEventListener("DOMContentLoaded", async function () {
   fetch("../db/data.json")
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Erro ao carregar o JSON: ${response.status}`);
+      return response.json();
+    })
     .then(async (data) => {
       try {
         urlServer2 = "https://" + data.urlServer;
@@ -20,7 +24,13 @@ document.addEventListener("DOMContentLoaded", async function () {
               Authorization: token,
             },
           })
-            .then((response) => response.json())
+            .then((response) => {
+              if (!response.ok)
+                throw new Error(
+                  `Erro ao obter os pedidos: ${response.status}`
+                );
+              return response.json();
+            })
             .then((pedidos) => {
               const dataTable = $(".datanew").DataTable();
 
