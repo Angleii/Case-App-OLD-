@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 
 let urlServer = "";
@@ -21,6 +21,11 @@ async function fetchUrl() {
     });
 
     const data = await response.json();
+    if (!data.endpoints || data.endpoints.length === 0) {
+      console.error("Nenhum endpoint encontrado na API Ngrok");
+      return;
+    }
+
     urlServer = String(data.endpoints[0].hostport);
   } catch (error) {
     console.error(error);
@@ -40,7 +45,7 @@ async function saveToJson() {
   const filePath = path.join(__dirname, "data.json");
 
   try {
-    await fs.promises.writeFile(filePath, JSON.stringify(jsonData, null, 2));
+    await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2));
     console.log("Data foi salva em data.json");
   } catch (error) {
     console.error("Error ao salvar data em data.json:", error);

@@ -2,12 +2,11 @@ const chokidar = require("chokidar");
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
-const fsPromises = fs.promises;
+const fs = require("fs/promises");
 //AES-128-ECB - case => base64
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
@@ -33,16 +32,16 @@ if (!secretKey) {
 
 async function recarregarDados() {
   try {
-    const data0 = await fsPromises.readFile(ContratosPath, "utf-8");
+    const data0 = await fs.readFile(ContratosPath, "utf-8");
     contratos = JSON.parse(data0);
 
-    const data1 = await fsPromises.readFile(usuariosPath, "utf-8");
+    const data1 = await fs.readFile(usuariosPath, "utf-8");
     usuarios = JSON.parse(data1);
 
-    const data2 = await fsPromises.readFile(colaboradoresPath, "utf-8");
+    const data2 = await fs.readFile(colaboradoresPath, "utf-8");
     colaboradoresP = JSON.parse(data2);
 
-    const data3 = await fsPromises.readFile(departamentoPath, "utf-8");
+    const data3 = await fs.readFile(departamentoPath, "utf-8");
     departamentoP = JSON.parse(data3);
 
     console.log("Dados recarregados com sucesso!");
@@ -124,7 +123,7 @@ app.post("/adicionar-pedido", verifyToken, async (req, res) => {
 
     contratos.count = id;
 
-    await fsPromises.writeFile(
+    await fs.writeFile(
       ContratosPath,
       JSON.stringify(contratos, null, 2)
     );
@@ -171,7 +170,7 @@ app.post("/assinar-pedido", verifyToken, async (req, res) => {
       });
 
       // Salve as alterações no arquivo JSON
-      await fsPromises.writeFile(
+      await fs.writeFile(
         ContratosPath,
         JSON.stringify(contratos, null, 2)
       );
@@ -341,9 +340,6 @@ app.delete(
     try {
       const { contrato, colaborador, idPedido } = req.params;
 
-      const data = await fsPromises.readFile(ContratosPath, "utf-8");
-      const contratos = JSON.parse(data);
-
       // Verificar se o contrato e o colaborador existem
       if (
         contratos.contratos[contrato] &&
@@ -363,7 +359,7 @@ app.delete(
           pedidos.splice(index, 1);
 
           // Salvar as alterações no arquivo JSON
-          await fsPromises.writeFile(
+          await fs.writeFile(
             ContratosPath,
             JSON.stringify(contratos, null, 2)
           );
@@ -384,9 +380,10 @@ app.delete(
   }
 );
 
-const watcher = chokidar.watch([usuariosPath, colaboradoresPath], {
-  ignoreInitial: true,
-});
+const watcher = chokidar.watch(
+  [usuariosPath, colaboradoresPath, ContratosPath, departamentoPath],
+  { ignoreInitial: true }
+);
 
 // Adicione um evento para recarregar os dados quando os arquivos forem alterados
 watcher.on("change", (path) => {
