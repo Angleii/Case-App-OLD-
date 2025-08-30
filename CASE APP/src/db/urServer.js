@@ -5,7 +5,12 @@ let urlServer = "";
 
 async function fetchUrl() {
   const apiUrl = "https://api.ngrok.com/endpoints";
-  const token = "2lvQmJBLJqewAOCTj6X1l2Ix0R5_7i6WoH8DmcuVjgXhNip3Q";
+  const token = process.env.NGROK_API_TOKEN;
+
+  if (!token) {
+    console.error("NGROK_API_TOKEN não definido nas variáveis de ambiente");
+    return;
+  }
 
   try {
     const response = await fetch(apiUrl, {

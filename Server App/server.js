@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const fsPromises = fs.promises;
 //AES-128-ECB - case => base64
 
 const app = express();
@@ -24,21 +25,24 @@ let colaboradoresP = {};
 const departamentoPath = "./database/departamentos.json";
 let departamentoP = {};
 
-const secretKey =
-  "cG0xVFplLWhYOGJ0cUhCNmdEcUYyVEJleWk5NWZGQTFjajZLQWZHREFxRQ==";
+const secretKey = process.env.JWT_SECRET;
+if (!secretKey) {
+  console.error("JWT_SECRET não definido nas variáveis de ambiente.");
+  process.exit(1);
+}
 
-function recarregarDados() {
+async function recarregarDados() {
   try {
-    const data0 = fs.readFileSync(ContratosPath);
+    const data0 = await fsPromises.readFile(ContratosPath, "utf-8");
     contratos = JSON.parse(data0);
-  
-    const data1 = fs.readFileSync(usuariosPath);
+
+    const data1 = await fsPromises.readFile(usuariosPath, "utf-8");
     usuarios = JSON.parse(data1);
-  
-    const data2 = fs.readFileSync(colaboradoresPath);
+
+    const data2 = await fsPromises.readFile(colaboradoresPath, "utf-8");
     colaboradoresP = JSON.parse(data2);
-  
-    const data3 = fs.readFileSync(departamentoPath);
+
+    const data3 = await fsPromises.readFile(departamentoPath, "utf-8");
     departamentoP = JSON.parse(data3);
 
     console.log("Dados recarregados com sucesso!");
@@ -47,7 +51,7 @@ function recarregarDados() {
   }
 }
 
-recarregarDados()
+recarregarDados();
 
 // Rota de login
 app.post("/login", (req, res) => {
@@ -84,7 +88,7 @@ app.post("/login", (req, res) => {
 });
 
 // Rota para adicionar pedidos
-app.post("/adicionar-pedido", verifyToken, (req, res) => {
+app.post("/adicionar-pedido", verifyToken, async (req, res) => {
   try {
     const { contrato, colaborador, pedido, id } = req.body;
 
@@ -120,7 +124,10 @@ app.post("/adicionar-pedido", verifyToken, (req, res) => {
 
     contratos.count = id;
 
-    fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+    await fsPromises.writeFile(
+      ContratosPath,
+      JSON.stringify(contratos, null, 2)
+    );
 
     res.json(contratos);
   } catch (error) {
@@ -130,7 +137,7 @@ app.post("/adicionar-pedido", verifyToken, (req, res) => {
 });
 
 // Rota para assinar e enviar informações atualizadas
-app.post("/assinar-pedido", verifyToken, (req, res) => {
+app.post("/assinar-pedido", verifyToken, async (req, res) => {
   try {
     const { contrato, colaborador, idPedido, quantidadesAtualizadas } =
       req.body;
@@ -164,7 +171,10 @@ app.post("/assinar-pedido", verifyToken, (req, res) => {
       });
 
       // Salve as alterações no arquivo JSON
-      fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+      await fsPromises.writeFile(
+        ContratosPath,
+        JSON.stringify(contratos, null, 2)
+      );
 
       res.json({ message: "Pedido assinado com sucesso." });
     } else {
@@ -327,11 +337,11 @@ app.get("/detalhes-pedido/:id", verifyToken, (req, res) => {
 app.delete(
   "/deletar-pedido/:contrato/:colaborador/:idPedido",
   verifyToken,
-  (req, res) => {
+  async (req, res) => {
     try {
       const { contrato, colaborador, idPedido } = req.params;
 
-      const data = fs.readFileSync(ContratosPath);
+      const data = await fsPromises.readFile(ContratosPath, "utf-8");
       const contratos = JSON.parse(data);
 
       // Verificar se o contrato e o colaborador existem
@@ -353,7 +363,10 @@ app.delete(
           pedidos.splice(index, 1);
 
           // Salvar as alterações no arquivo JSON
-          fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+          await fsPromises.writeFile(
+            ContratosPath,
+            JSON.stringify(contratos, null, 2)
+          );
 
           res.json({ message: "Pedido excluído com sucesso." });
         } else {
