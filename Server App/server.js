@@ -84,7 +84,7 @@ app.post("/login", (req, res) => {
 });
 
 // Rota para adicionar pedidos
-app.post("/adicionar-pedido", verifyToken, (req, res) => {
+app.post("/adicionar-pedido", verifyToken, async (req, res) => {
   try {
     const { contrato, colaborador, pedido, id } = req.body;
 
@@ -120,17 +120,20 @@ app.post("/adicionar-pedido", verifyToken, (req, res) => {
 
     contratos.count = id;
 
-    fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+    await fs.promises.writeFile(
+      ContratosPath,
+      JSON.stringify(contratos, null, 2)
+    );
 
     res.json(contratos);
   } catch (error) {
     console.error("Erro interno ao processar a solicitação:", error);
-    res.status(500).send("Erro interno no servidor");
+    res.status(500).json({ error: "Erro interno no servidor" });
   }
 });
 
 // Rota para assinar e enviar informações atualizadas
-app.post("/assinar-pedido", verifyToken, (req, res) => {
+app.post("/assinar-pedido", verifyToken, async (req, res) => {
   try {
     const { contrato, colaborador, idPedido, quantidadesAtualizadas } =
       req.body;
@@ -164,7 +167,10 @@ app.post("/assinar-pedido", verifyToken, (req, res) => {
       });
 
       // Salve as alterações no arquivo JSON
-      fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+      await fs.promises.writeFile(
+        ContratosPath,
+        JSON.stringify(contratos, null, 2)
+      );
 
       res.json({ message: "Pedido assinado com sucesso." });
     } else {
@@ -172,7 +178,7 @@ app.post("/assinar-pedido", verifyToken, (req, res) => {
     }
   } catch (error) {
     console.error("Erro ao assinar o pedido:", error);
-    res.status(500).send("Erro interno no servidor");
+    res.status(500).json({ error: "Erro interno no servidor" });
   }
 });
 
@@ -327,21 +333,21 @@ app.get("/detalhes-pedido/:id", verifyToken, (req, res) => {
 app.delete(
   "/deletar-pedido/:contrato/:colaborador/:idPedido",
   verifyToken,
-  (req, res) => {
+  async (req, res) => {
     try {
       const { contrato, colaborador, idPedido } = req.params;
 
-      const data = fs.readFileSync(ContratosPath);
-      const contratos = JSON.parse(data);
+      const data = await fs.promises.readFile(ContratosPath);
+      const contratosData = JSON.parse(data);
 
       // Verificar se o contrato e o colaborador existem
       if (
-        contratos.contratos[contrato] &&
-        contratos.contratos[contrato].colaboradores[colaborador]
+        contratosData.contratos[contrato] &&
+        contratosData.contratos[contrato].colaboradores[colaborador]
       ) {
         // Obter a lista de pedidos do colaborador
         const pedidos =
-          contratos.contratos[contrato].colaboradores[colaborador].pedidos;
+          contratosData.contratos[contrato].colaboradores[colaborador].pedidos;
 
         // Encontrar o índice do pedido com base no ID fornecido
         const index = pedidos.findIndex(
@@ -353,7 +359,11 @@ app.delete(
           pedidos.splice(index, 1);
 
           // Salvar as alterações no arquivo JSON
-          fs.writeFileSync(ContratosPath, JSON.stringify(contratos, null, 2));
+          await fs.promises.writeFile(
+            ContratosPath,
+            JSON.stringify(contratosData, null, 2)
+          );
+          contratos = contratosData;
 
           res.json({ message: "Pedido excluído com sucesso." });
         } else {
@@ -366,7 +376,7 @@ app.delete(
       }
     } catch (error) {
       console.error("Erro ao excluir o pedido:", error);
-      res.status(500).send("Erro interno no servidor");
+      res.status(500).json({ error: "Erro interno no servidor" });
     }
   }
 );
