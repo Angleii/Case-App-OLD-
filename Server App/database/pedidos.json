@@ -1,0 +1,226 @@
+{
+  "count": 9,
+  "contratos": {
+    "cacho-vazio": {
+      "colaboradores": {
+        "0": {
+          "pedidos": [
+            {
+              "id": 5,
+              "response": "0",
+              "contrato": "cacho-vazio",
+              "condutor": "nenhum",
+              "autor": "Marlon Campos",
+              "data": "11/09/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": "NEGADO",
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "teste",
+                  "categoria": "EPI",
+                  "quantidade": "1",
+                  "quantidade_original": "1",
+                  "descricao": "1414",
+                  "valorUni": "10",
+                  "fornecedor": ""
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "response": "0",
+              "contrato": "cacho-vazio",
+              "condutor": "nenhum",
+              "autor": "Marlon Campos",
+              "data": "11/09/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": true,
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "Capacete",
+                  "categoria": "EPI",
+                  "quantidade": "3",
+                  "quantidade_original": "5",
+                  "descricao": "Azul",
+                  "valorUni": "10",
+                  "fornecedor": ""
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "response": "0",
+              "contrato": "cacho-vazio",
+              "condutor": "nenhum",
+              "autor": "Marlon Campos",
+              "data": "19/09/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": true,
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "Capacete",
+                  "categoria": "EPI",
+                  "quantidade": "30",
+                  "quantidade_original": "50",
+                  "descricao": "Azul",
+                  "valorUni": "20",
+                  "fornecedor": ""
+                }
+              ]
+            }
+          ]
+        },
+        "1": {
+          "pedidos": [
+            {
+              "id": 4,
+              "response": "1",
+              "contrato": "cacho-vazio",
+              "condutor": "nenhum",
+              "autor": "Carlos Manoel",
+              "data": "02/02/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": "NEGADO",
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "12313",
+                  "categoria": "EPI",
+                  "quantidade": "n",
+                  "quantidade_original": "124124",
+                  "descricao": "1safasfa",
+                  "valorUni": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "2": {
+          "pedidos": []
+        },
+        "3": {
+          "pedidos": [
+            {
+              "id": 9,
+              "response": "3",
+              "contrato": "cacho-vazio",
+              "condutor": "nenhum",
+              "autor": "Carlos Sena",
+              "data": "19/09/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": false,
+              "supView": 0,
+              "assinaturaDir": false,
+              "dirView": 0,
+              "pedidos": [
+                {
+                  "nome": "Capacete",
+                  "categoria": "EPI",
+                  "quantidade": "0",
+                  "quantidade_original": "32",
+                  "descricao": "",
+                  "valorUni": 0,
+                  "fornecedor": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "troca-de-filtro": {
+      "colaboradores": {
+        "0": {
+          "pedidos": [
+            {
+              "id": 7,
+              "response": "0",
+              "contrato": "troca-de-filtro",
+              "condutor": "nenhum",
+              "autor": "Marlon Campos",
+              "data": "12/09/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": true,
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "Capacete",
+                  "categoria": "EPI",
+                  "quantidade": "25",
+                  "quantidade_original": "50",
+                  "descricao": "25 azul\n25 Vermelho",
+                  "valorUni": "50",
+                  "fornecedor": ""
+                },
+                {
+                  "nome": "Luva",
+                  "categoria": "Adicione a categoria...",
+                  "quantidade": "10",
+                  "quantidade_original": "10",
+                  "descricao": "De raspa",
+                  "valorUni": "5",
+                  "fornecedor": ""
+                }
+              ]
+            }
+          ]
+        },
+        "1": {
+          "pedidos": [
+            {
+              "id": 4,
+              "response": "1",
+              "contrato": "troca-de-filtro",
+              "condutor": "nenhum",
+              "autor": "Carlos Manoel",
+              "data": "02/02/2024",
+              "assinaturaAmo": true,
+              "amoView": 1,
+              "assinaturaSup": true,
+              "supView": 1,
+              "assinaturaDir": "NEGADO",
+              "dirView": 1,
+              "pedidos": [
+                {
+                  "nome": "tesatas",
+                  "categoria": "EPI",
+                  "quantidade": "n",
+                  "quantidade_original": "12124",
+                  "descricao": "vafa",
+                  "valorUni": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "2": {
+          "pedidos": []
+        },
+        "3": {
+          "pedidos": []
+        }
+      }
+    },
+    "troca-de-filtro2": {
+    }
+  }
+}

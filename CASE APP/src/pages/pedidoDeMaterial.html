@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ordem de Compra - CASE SGI</title>
+    <link rel="stylesheet" href="../css/stylePedido.css" />
+  </head>
+  <body>
+    <a id="buttonVoltar" href="pedidoDeCompra.html">VOLTAR</a>
+    <div id="ordemCompra">
+      <div class="logo-container">
+        <img src="../img/case-logoD.png" class="logo" />
+        <div class="center-container">
+          <h1 id="titleT">Pedido de Material</h1>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="info-tudo">
+        <p><strong>Dados da Solicitante:</strong></p>
+        <div class="info-container">
+          <div class="info-item">
+            <p><strong>Razão Social:</strong><br />Case C2d Engenharia Ltda</p>
+          </div>
+          <div class="info-item">
+            <p><strong>CNPJ:</strong><br />19.969.462/0001-40</p>
+          </div>
+          <div class="info-item">
+            <p><strong>Inscrição Estadual:</strong><br />15.456.850-3</p>
+          </div>
+        </div>
+        <div class="info-container">
+          <div class="info-item">
+            <p><strong>Endereço:</strong><br />Rua A31, Qd. 20, Lt. 48</p>
+          </div>
+          <div class="info-item">
+            <p><strong>Bairro:</strong><br />Alvorá</p>
+          </div>
+          <div class="info-item">
+            <p><strong>Cidade:</strong><br />Parauapebas / PA</p>
+          </div>
+        </div>
+        <div class="info-container">
+          <div class="info-item">
+            <p><strong>CEP:</strong><br />68.515-000</p>
+          </div>
+          <div class="info-item">
+            <p><strong>Telefone:</strong><br />(94) 3199-0023</p>
+          </div>
+          <div class="info-item">
+            <p><strong>Email:</strong><br />suprimentos@caseeng.com.br</p>
+          </div>
+        </div>
+        <div class="info-container">
+          <div id="destino" class="info-item full-width"></div>
+        </div>
+      </div>
+
+      <hr />
+
+      <table>
+        <thead>
+          <tr>
+            <th>N.</th>
+            <th>Item</th>
+            <th>Quant.</th>
+            <th id="descri">Desc.</th>
+            <th id="precoUni">Preço Uni.</th>
+            <th id="forne">Fornecedor</th>
+            <th id="totalUni">Total</th>
+          </tr>
+        </thead>
+        <tbody id="itens"></tbody>
+      </table>
+
+      <hr />
+
+      <p id="totalTudo"></p>
+
+      <hr />
+
+      <p><strong>Observação:</strong></p>
+      <div class="observation-container">
+        <p id="obs">
+          * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in
+          quam vitae velit semper gravida. Curabitur suscipit lacus ut ultrices
+          dapibus.
+        </p>
+      </div>
+
+      <div class="assinaturas">
+        <div id="amo" class="assinatura-item">
+          <p id="barAmo">__________________________________</p>
+          <p>Almoxarifado</p>
+        </div>
+        <div id="sup" class="assinatura-item">
+          <p>__________________________________</p>
+          <p>Suprimentos</p>
+        </div>
+        <div id="dir" class="assinatura-item">
+          <p>__________________________________</p>
+          <p>Diretoria</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../controllers/listMaterial.js"></script>
+  </body>
+</html>

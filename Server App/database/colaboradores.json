@@ -1,0 +1,33 @@
+{
+  "0": {
+    "nome": "Marlon Campos",
+    "departamento": 0,
+    "email": "marlon.campos@caseeng.com.br",
+    "contratos": ["cacho-vazio", "troca-de-filtro"],
+    "matricula": "0"
+  },
+  "1": {
+    "nome": "Carlos Manoel",
+    "departamento": 1,
+    "email": "carlos.Manoel@caseeng.com.br",
+    "matricula": "1"
+  },
+  "2": {
+    "nome": "Anglei Ferradais",
+    "departamento": 2,
+    "email": "anglei.ferradais@caseeng.com.br",
+    "matricula": "2"
+  },
+  "3": {
+    "nome": "Carlos Sena",
+    "departamento": 3,
+    "email": "carlos.sena@caseeng.com.br",
+    "matricula": "3"
+  },
+  "4": {
+    "nome": "Oseias Ferreira",
+    "departamento": 4,
+    "email": "oseias.ferreira@caseeng.com.br",
+    "matricula": "4"
+  }
+}

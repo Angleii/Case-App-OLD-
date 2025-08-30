@@ -1,0 +1,30 @@
+{
+  "defaultURL": "erro.html",
+  "departamentos": {
+    "0": {
+      "name": "Preposto",
+      "permission": ["Pedidos", "Configurações"],
+      "urlSpawn": "pedidoDeCompra"
+    },
+    "1": {
+      "name": "Almoxarife Matricial",
+      "permission": ["Pedidos De Material", "Configurações"],
+      "urlSpawn": "listmaterial"
+    },
+    "2": {
+      "name": "Suprimentos",
+      "permission": ["Financeiro", "Configurações"],
+      "urlSpawn": "solicitcompra"
+    },
+    "3": {
+      "name": "Diretoria",
+      "permission": ["Livre"],
+      "urlSpawn": "pedidoDeCompra"
+    },
+    "5": {
+      "name": "Comercial",
+      "permission": ["Comercial"],
+      "urlSpawn": "comercial"
+    }
+  }
+}
