@@ -2,7 +2,11 @@ let urlServer = "";
 
 document.addEventListener("DOMContentLoaded", async function () {
   fetch("../db/data.json")
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Erro ao carregar o JSON: ${response.status}`);
+      return response.json();
+    })
     .then(async (data) => {
       try {
         urlServer = "https://" + data.urlServer;
@@ -52,13 +56,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             "Content-Type": "application/json",
           },
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok)
+              throw new Error(`Erro ao obter contratos: ${response.status}`);
+            return response.json();
+          })
           .then((data) => {
             const arrayContratos = Object.values(data);
-            console.log(arrayContratos)
             const selectElement = document.getElementById("contratos-select");
             arrayContratos.forEach((contrato) => {
-              console.log(contrato)
               const option = document.createElement("option");
               option.text = contrato;
               option.value = contrato;
@@ -67,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async function () {
           })
           .catch((error) => {
             console.error("Erro ao obter contratos:", error);
-            // Trate o erro conforme necessário
           });
         concluirButton.addEventListener("click", function (event) {
           event.preventDefault();
@@ -78,7 +83,13 @@ document.addEventListener("DOMContentLoaded", async function () {
               "ngrok-skip-browser-warning": "69420",
             },
           })
-            .then((response) => response.json())
+            .then((response) => {
+              if (!response.ok)
+                throw new Error(
+                  `Erro ao obter quantidade de pedidos: ${response.status}`
+                );
+              return response.json();
+            })
             .then((data) => {
               idT = data.idPedido;
               const contrato =
@@ -94,7 +105,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return;
               }
 
-              console.log(idT);
               // Crie um FormData específico para o formulário principal
               const formData = new FormData(
                 document.getElementById("pedidoForm")
@@ -150,7 +160,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return;
               }
 
-              console.log('teste')
               // Enviar a solicitação POST para adicionar o novo pedido
               fetch(`${urlServer}/adicionar-pedido`, {
                 method: "POST",
@@ -166,15 +175,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                   id: idT,
                 }),
               })
-                .then((response) => response.json())
-                .then((data) => {
-                  console.log('teste')
-                  console.log("Novo pedido adicionado:", data);
-
+                .then((response) => {
+                  if (!response.ok)
+                    throw new Error(
+                      `Erro ao adicionar o pedido: ${response.status}`
+                    );
+                  return response.json();
+                })
+                .then(() => {
                   window.location.href = `${pagelink}`;
                 })
                 .catch((error) => {
-                  console.log('teste')
                   console.error("Erro ao adicionar o pedido:", error);
                 });
             })
