@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const crypto = require("crypto");
 //AES-128-ECB - case => base64
 
 const app = express();
@@ -25,7 +26,12 @@ const departamentoPath = "./database/departamentos.json";
 let departamentoP = {};
 
 const secretKey =
-  "cG0xVFplLWhYOGJ0cUhCNmdEcUYyVEJleWk5NWZGQTFjajZLQWZHREFxRQ==";
+  process.env.JWT_SECRET || crypto.randomBytes(64).toString("base64");
+if (!process.env.JWT_SECRET) {
+  console.warn(
+    "JWT_SECRET environment variable is not set. Using a generated fallback key."
+  );
+}
 
 function recarregarDados() {
   try {
